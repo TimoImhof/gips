@@ -1,0 +1,88 @@
+Matplotlib created a temporary cache directory at /scratch/88894/matplotlib-_81bdwel because the default path (/home/imhof/.config/matplotlib) is not a writable directory; it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:75: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `pytorch_lightning` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+Missing logger folder: /mnt/beegfs/work/imhof/gips/osv5m_github/lightning_logs
+/mnt/beegfs/work/imhof/gips/osv5m_github/data/data.py:316: RuntimeWarning: divide by zero encountered in divide
+  weights = 1.0 / np.power(hist[df["lon_bin"], df["lat_bin"]], 0.75)
+/mnt/beegfs/work/imhof/gips/osv5m_github/data/data.py:317: RuntimeWarning: invalid value encountered in divide
+  normalized_weights = weights / np.sum(weights)
+/mnt/beegfs/work/imhof/gips/osv5m_github/data/data.py:389: DtypeWarning: Columns (11,27) have mixed types. Specify dtype option on import or set low_memory=False.
+  pd.read_csv(join(self.path, f"{split}.csv"))[tag]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+Each GPU will receive 1024 images
+Stage TrainerFn.TESTING
+Loading categories from ['train']
+Test dataset size: 210122
+Setup took 91.56 seconds
+Testing: |          | 0/? [00:00<?, ?it/s]Error executing job with overrides: ['+pt_model_path=${hydra:runtime.config_sources}', 'exp=eval_best_model', 'dataset.global_batch_size=1024']
+Traceback (most recent call last):
+  File "/storage/ukp/work/imhof/gips/osv5m_github/evaluation.py", line 68, in main
+    trainer.test(model, datamodule=datamodule)
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 754, in test
+    return call._call_and_handle_interrupt(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 794, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 987, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 1026, in _run_stage
+    return self._evaluation_loop.run()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/loops/utilities.py", line 182, in _decorator
+    return loop_run(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 128, in run
+    batch, batch_idx, dataloader_idx = next(data_fetcher)
+                                       ^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/loops/fetchers.py", line 133, in __next__
+    batch = super().__next__()
+            ^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/loops/fetchers.py", line 60, in __next__
+    batch = next(self.iterator)
+            ^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/utilities/combined_loader.py", line 341, in __next__
+    out = next(self._iterator)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/pytorch_lightning/utilities/combined_loader.py", line 142, in __next__
+    out = next(self.iterators[0])
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 1346, in _next_data
+    return self._process_data(data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 1372, in _process_data
+    data.reraise()
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/_utils.py", line 705, in reraise
+    raise exception
+KeyError: Caught KeyError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+            ~~~~~~~~~~~~^^^^^
+  File "/mnt/beegfs/work/imhof/gips/osv5m_github/data/data.py", line 553, in __getitem__
+    output = super().__getitem__(i)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/beegfs/work/imhof/gips/osv5m_github/data/data.py", line 431, in __getitem__
+    Image.open(self.dict_names[f"{int(x[0])}.jpg"])
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+KeyError: '547473234108938.jpg'
+
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Testing: |          | 0/? [00:11<?, ?it/s]

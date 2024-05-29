@@ -1,0 +1,6 @@
+/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/torch/cuda/__init__.py:619: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+/storage/ukp/work/imhof/miniconda3/envs/gips/lib/python3.12/site-packages/transformers/generation/utils.py:1168: UserWarning: Using the model-agnostic default `max_length` (=20) to control the generation length. We recommend setting `max_new_tokens` to control the maximum length of the generation.
+  warnings.warn(
+this is an image featuring a view of a courtyard in a city
+arafed view of a courtyard with a brick walkway and a building
