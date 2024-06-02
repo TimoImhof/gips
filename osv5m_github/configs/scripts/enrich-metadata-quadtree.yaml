@@ -1,4 +1,0 @@
-data_dir: ???
-depth: 10
-do_split: 1000
-overwrite_csv: False

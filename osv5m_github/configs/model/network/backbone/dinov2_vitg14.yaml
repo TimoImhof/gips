@@ -1,5 +1,0 @@
-instance:
-  _target_: models.networks.backbones.DINOv2
-  tag: dinov2_vitg14
-
-output_dim: 1536

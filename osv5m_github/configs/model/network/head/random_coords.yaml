@@ -1,3 +1,0 @@
-instance:
-  _target_: models.networks.heads.random.RandomCoords
-  coords_path: ${dataset.train_dataset.path}/train/train.csv

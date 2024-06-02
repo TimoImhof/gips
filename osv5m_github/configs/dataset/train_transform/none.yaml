@@ -1,7 +1,0 @@
-_target_: torchvision.transforms.Compose
-transforms:
-  - _target_: torchvision.transforms.Resize
-    size: 224
-    interpolation: 3
-    antialias: true
-  - _target_: torchvision.transforms.ToTensor

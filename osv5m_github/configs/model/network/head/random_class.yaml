@@ -1,3 +1,0 @@
-instance:
-  _target_: models.models.networks.random.Random
-  num_output: ${num_classes}

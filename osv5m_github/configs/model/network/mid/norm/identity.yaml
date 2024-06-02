@@ -1,2 +1,0 @@
-_target_: torch.nn.Identity
-_partial_: true

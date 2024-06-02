@@ -1,5 +1,0 @@
-_target_: models.losses.Losses
-mix: {
-  hierarchical : 1.0,
-}
-path: ${data_dir}

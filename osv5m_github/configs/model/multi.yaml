@@ -1,9 +1,0 @@
-defaults:
-  - optimizer: adam
-  - lr_scheduler: none
-  - network: multi_task
-  - loss: aux_loss
-  - _self_
-
-name: Multi_task
-text_tuning: ${text_tuning}
