@@ -1,4 +1,6 @@
 import csv
+import re
+
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -40,29 +42,49 @@ def retrieve_country_info():
 
     # for each country, retrieve the information
     for url in tqdm(df['URL']):
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-
-        # Find the div tag with the specific information needed
-        target_div = soup.find('div', {'xmlns:fn': 'http://www.w3.org/2005/xpath-functions', 'itemprop': 'text'})
-
-        # Extract all paragraph texts
-        paragraphs = target_div.find_all('p')
-        paragraph_texts = [p.get_text() for p in paragraphs]
-
-        # Write the information to list
+        # Extract the continent and country from the url
         splitted_url = url.split('/')
         continent, country = splitted_url[4], splitted_url[5]
-        data_rows.append([continent, country, paragraph_texts])
 
+        content = [continent, country]
+        # Retrieve the page content
+        for part in ['', 'history-language-culture/', 'weather-climate-geography/']:
+            complete_url = url + part
+
+            page = requests.get(complete_url)
+            soup = BeautifulSoup(page.content, 'html.parser')
+
+            # Find the div tag with the specific information needed
+            target_div = soup.find('div', {'xmlns:fn': 'http://www.w3.org/2005/xpath-functions', 'itemprop': 'text'})
+            if target_div is None:
+                target_div = soup.find('article', {'class': 'col-md-7 col-sm-7 main_content'})
+
+            # Extract all paragraph texts
+            paragraphs = [p.get_text() for p in target_div.find_all('p')]
+            content.append(clean_text(paragraphs))
+
+        data_rows.append(content)
 
     # Store the information in a csv file
-    with open('worldtravelguide.csv', 'w', newline='', encoding='utf-8') as file:
+    with open('country_info.csv', 'w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(['Continent', 'Country', 'Information'])
+        writer.writerow(['Continent', 'Country', 'General', 'History and Culture', 'Weather and Geography'])
 
         for row in data_rows:
-            continent, country, paragraph_texts = row
-            writer.writerow([continent, country, paragraph_texts])
+            writer.writerow(row)
+
+
+def clean_text(text_list):
+    # Join the list into one string
+    joined_text = ' '.join(text_list)
+
+    # Replace newlines with spaces
+    joined_text = joined_text.replace('\n', ' ')
+
+    # Replace multiple spaces with a single space
+    cleaned_text = re.sub(' +', ' ', joined_text).strip()
+
+    return cleaned_text
+
 
 retrieve_country_info()
