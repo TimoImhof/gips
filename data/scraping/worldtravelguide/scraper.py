@@ -8,6 +8,8 @@ from tqdm import tqdm
 
 
 def retrieve_country_urls():
+    """ Extracts all the urls to all country guides from the website https://www.worldtravelguide.net/country-guides/
+     and stores them in a .csv file. """
     start_url = "https://www.worldtravelguide.net/country-guides/"
     page = requests.get(start_url)
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -36,6 +38,7 @@ def retrieve_country_urls():
 
 
 def retrieve_country_info():
+    """ From a dataframe of urls extract all the information about each country and stores them in a .csv file. """
     # read the csv file with the country urls
     df = pd.read_csv('country_urls.csv')
     data_rows = []
@@ -50,15 +53,12 @@ def retrieve_country_info():
         # Retrieve the page content
         for part in ['', 'history-language-culture/', 'weather-climate-geography/']:
             complete_url = url + part
-
             page = requests.get(complete_url)
             soup = BeautifulSoup(page.content, 'html.parser')
-
             # Find the div tag with the specific information needed
             target_div = soup.find('div', {'xmlns:fn': 'http://www.w3.org/2005/xpath-functions', 'itemprop': 'text'})
             if target_div is None:
                 target_div = soup.find('article', {'class': 'col-md-7 col-sm-7 main_content'})
-
             # Extract all paragraph texts
             paragraphs = [p.get_text() for p in target_div.find_all('p')]
             content.append(clean_text(paragraphs))
@@ -75,16 +75,32 @@ def retrieve_country_info():
 
 
 def clean_text(text_list):
+    """ Takes a list of strings and cleans them into a combined text string with correct formatting. """
     # Join the list into one string
     joined_text = ' '.join(text_list)
-
     # Replace newlines with spaces
     joined_text = joined_text.replace('\n', ' ')
-
     # Replace multiple spaces with a single space
     cleaned_text = re.sub(' +', ' ', joined_text).strip()
 
     return cleaned_text
 
 
-retrieve_country_info()
+def filter(countries: list = ['china', 'india'], columns: list = ['General', 'History and Culture']):
+    """ Filtering out data which we don't use for model training.
+    Can filter rows of named countries and also full columns. """
+    # Load data
+    df = pd.read_csv('country_info.csv')
+    # filter columns
+    df = df.drop(columns=columns)
+    # filter rows which belong to china or india
+    df = df[~df['Country'].isin(['china', 'india'])]
+    # save new dataframe
+    df.to_csv(path_or_buf='country_info_filtered.csv', index=False)
+
+    return df
+
+
+# retrieve_country_info()
+
+filter()
